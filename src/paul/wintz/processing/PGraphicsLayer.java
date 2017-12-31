@@ -113,7 +113,7 @@ public class PGraphicsLayer extends Layer<PGraphics> {
 	}
 
 	@Override
-	public void endpointToEndpoint(Vector2D start, Vector2D end, Painter painter) {
+	public void line(Vector2D start, Vector2D end, Painter painter) {
 		line((float) start.x(), (float) start.y(), (float) end.x(), (float) end.y(), painter);
 	}
 
