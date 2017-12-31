@@ -99,19 +99,6 @@ public class PGraphicsLayer extends Layer<PGraphics> {
 		}
 	}
 
-	/**
-	 * Draw a dot at the given coordinates. This is different from a circle in
-	 * that the size of the circle does not scale, so it is always the portion
-	 * of the layers.
-	 */
-	public void dot(float x, float y, float radius, Painter painter, List<Transformation> transforms) {
-		ellipse(x, y, radius / getScaleX(), radius / getScaleY(), painter, transforms);
-	}
-
-	public void dot(Vector2D v, float radius, Painter painter, List<Transformation> transforms) {
-		dot((float) v.x(), (float) v.y(), radius, painter, transforms);
-	}
-
 	@Override
 	public void line(Vector2D start, Vector2D end, Painter painter) {
 		line((float) start.x(), (float) start.y(), (float) end.x(), (float) end.y(), painter);
@@ -126,6 +113,11 @@ public class PGraphicsLayer extends Layer<PGraphics> {
 				(float) (startPos.y() + scale * vector2D.y()), painter);
 	}
 
+	@Override
+	public void circle(Vector2D center, float radius, Painter painter) {
+		circle((float) center.x(), (float) center.y(), radius, painter);
+	}
+
 	/**
 	 * Draw an empty circle.
 	 *
@@ -133,16 +125,11 @@ public class PGraphicsLayer extends Layer<PGraphics> {
 	 *            x-coordinate of center of circle
 	 * @param y
 	 *            y-coordinate of center of circle
-	 * @param radius
-	 * @param strokeWeight
-	 * @param color
-	 * @param layers
 	 */
 	@Override
 	public void circle(float x, float y, float radius, Painter painter) {
 		ellipse(x, y, (2 * radius), (2 * radius), painter, noTransforms);
 	}
-
 
 	@Override
 	public void drawPath(List<Vector2D> points, Painter painter) {
@@ -183,8 +170,7 @@ public class PGraphicsLayer extends Layer<PGraphics> {
 
 		if (painter.isStroked()) {
 			layer.stroke(painter.getStroke());
-			float scale = 0.5f * getAverageScale();
-			layer.strokeWeight(painter.getStrokeWeight() / scale);
+			layer.strokeWeight(painter.getStrokeWeight());
 		} else {
 			layer.noStroke();
 		}
@@ -236,17 +222,6 @@ public class PGraphicsLayer extends Layer<PGraphics> {
 		layer.beginDraw();
 
 	}
-
-	@Override
-	public void dot(float x, float y, float radius, Painter painter) {
-		dot(x, y, radius, painter, noTransforms);
-	}
-
-	@Override
-	public void dot(Vector2D pos, float radius, Painter painter) {
-		dot((float) pos.x(), (float) pos.y(), radius, painter);
-	}
-
 
 	private interface Drawer {
 		void draw();
