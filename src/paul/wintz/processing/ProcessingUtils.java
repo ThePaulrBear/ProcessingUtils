@@ -17,13 +17,6 @@ public final class ProcessingUtils {
 		ProcessingUtils.papplet = pApplet;
 	}
 
-	/**
-	 * Maps a value from the domain specified into the given range.
-	 */
-	public static float map(double value, float startDomain, float stopDomain, float startRange, float stopRange) {
-		return PApplet.map((float) value, startDomain, stopDomain, startRange, stopRange);
-	}
-
 	public static PGraphics createPGraphics(int width, int height) {
 		checkPositive(width);
 		checkPositive(height);
@@ -40,9 +33,6 @@ public final class ProcessingUtils {
 	/**
 	 * Create a new GifMaker. <br>
 	 * Note that the size of the GIF is <yIntercept> not </yIntercept> set here.
-	 *
-	 * @param fileName
-	 * @return
 	 */
 	public static GifMaker newGifMaker(File file) {
 		// GifMaker(PApplet parent, String filename, int quality, int
