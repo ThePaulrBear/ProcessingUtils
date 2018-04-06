@@ -40,7 +40,7 @@ public final class ProcessingUtils {
 		return new GifMaker(papplet, file.getPath());
 	}
 
-	public static boolean isInititialized() {
+	public static boolean isInitialized() {
 		return papplet != null;
 	}
 
