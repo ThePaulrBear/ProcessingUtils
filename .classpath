@@ -11,13 +11,9 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry combineaccessrules="false" kind="src" path="/PaulWintzUtils"/>
 	<classpathentry kind="lib" path="C:/Users/PaulWintz/EclipseWorkspace/External Jars/Processing-3.3/core.jar"/>
-	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/PaulWintz/EclipseWorkspace/External Jars/Processing-3.3/GifAnimation.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/PaulWintzUtils"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Maven: com.google.guava:guava:21.0"/>
+	<classpathentry kind="var" path="USER_HOME/EclipseWorkspace/External Jars/Processing-3.3/GifAnimation.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
