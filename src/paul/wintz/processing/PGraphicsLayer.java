@@ -8,9 +8,10 @@ import paul.wintz.canvas.*;
 import paul.wintz.math.Vector2D;
 import processing.core.*;
 
+@SuppressWarnings("unused")
 public class PGraphicsLayer extends Layer<PGraphics> {
 
-	private static final List<Transformation> noTransforms = Collections.<Transformation>emptyList();
+	private static final List<Transformation> noTransforms = Collections.emptyList();
 	private final Object lock = new Object();
 
 	public PGraphicsLayer(int width, int height) {
@@ -188,9 +189,6 @@ public class PGraphicsLayer extends Layer<PGraphics> {
 
 	/**
 	 * Sets short-term transformations.
-	 *
-	 * @param layers
-	 * @param transientTransforms
 	 */
 	private void pushTransientTransformations(PGraphics layer, List<Transformation> transientTransforms) {
 		checkNotNull(transientTransforms, "transforms were null");

@@ -8,6 +8,7 @@ import gifAnimation.GifMaker;
 import paul.wintz.utils.logging.Lg;
 import processing.core.*;
 
+@SuppressWarnings("unused")
 public final class ProcessingUtils {
 	private static final String TAG = Lg.makeTAG(ProcessingUtils.class);
 
@@ -38,10 +39,6 @@ public final class ProcessingUtils {
 		// GifMaker(PApplet parent, String filename, int quality, int
 		// transparentColor)
 		return new GifMaker(papplet, file.getPath());
-	}
-
-	public static boolean isInitialized() {
-		return papplet != null;
 	}
 
 	private ProcessingUtils() {}
