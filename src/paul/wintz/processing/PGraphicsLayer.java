@@ -101,6 +101,11 @@ public class PGraphicsLayer extends Layer<PGraphics> {
     }
 
     @Override
+    public void drawText(String text, int x, int y) {
+        layer.text(text, x, y);
+    }
+
+    @Override
     public void line(Vector2D start, Vector2D end, Painter painter) {
         line((float) start.x(), (float) start.y(), (float) end.x(), (float) end.y(), painter);
     }
