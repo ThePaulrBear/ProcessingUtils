@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+  <component name="EclipseModuleManager">
+    <libelement value="jar://$USER_HOME$/EclipseWorkspace/External Jars/Processing-3.3/core.jar!/" />
+    <varelement var="jar://$USER_HOME$/EclipseWorkspace/External Jars/Processing-3.3/GifAnimation.jar!/" value="USER_HOME/EclipseWorkspace/External Jars/Processing-3.3/GifAnimation.jar" />
+    <src_description expected_position="1">
+      <src_folder value="file://$MODULE_DIR$/src" expected_position="1" />
+    </src_description>
+  </component>
+  <component name="NewModuleRootManager">
     <output url="file://$MODULE_DIR$/target/classes" />
-    <output-test url="file://$MODULE_DIR$/target/test-classes" />
+    <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
-      <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
-      <library>
+      <library name="core.jar">
         <CLASSES>
           <root url="jar://$USER_HOME$/EclipseWorkspace/External Jars/Processing-3.3/core.jar!/" />
         </CLASSES>
@@ -21,7 +27,7 @@
     <orderEntry type="module" module-name="PaulWintzUtils" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:21.0" level="project" />
     <orderEntry type="module-library">
-      <library>
+      <library name="GifAnimation.jar">
         <CLASSES>
           <root url="jar://$USER_HOME$/EclipseWorkspace/External Jars/Processing-3.3/GifAnimation.jar!/" />
         </CLASSES>
@@ -29,6 +35,5 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="KotlinJavaRuntime" level="project" />
   </component>
 </module>
