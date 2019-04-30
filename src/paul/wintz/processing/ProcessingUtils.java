@@ -1,12 +1,13 @@
 package paul.wintz.processing;
 
-import static paul.wintz.utils.Utils.checkPositive;
+import gifAnimation.GifMaker;
+import paul.wintz.utils.logging.Lg;
+import processing.core.PApplet;
+import processing.core.PGraphics;
 
 import java.io.File;
 
-import gifAnimation.GifMaker;
-import paul.wintz.utils.logging.Lg;
-import processing.core.*;
+import static paul.wintz.utils.Utils.checkPositive;
 
 @SuppressWarnings("unused")
 public final class ProcessingUtils {
@@ -33,7 +34,7 @@ public final class ProcessingUtils {
 
     /**
      * Create a new GifMaker. <br>
-     * Note that the size of the GIF is <yIntercept> not </yIntercept> set here.
+     * Note that the size of the GIF is <b> not </b> set here.
      */
     public static GifMaker newGifMaker(File file) {
         // GifMaker(PApplet parent, String filename, int quality, int
