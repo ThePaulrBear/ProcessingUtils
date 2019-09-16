@@ -1,12 +1,15 @@
 package paul.wintz.processing;
 
-import static com.google.common.base.Preconditions.*;
-
-import java.util.*;
-
-import paul.wintz.canvas.*;
+import paul.wintz.canvas.Layer;
+import paul.wintz.canvas.Painter;
 import paul.wintz.math.Vector2D;
-import processing.core.*;
+import processing.core.PConstants;
+import processing.core.PGraphics;
+
+import java.util.Collections;
+import java.util.List;
+
+import static com.google.common.base.Preconditions.*;
 
 @SuppressWarnings("unused")
 public class PGraphicsLayer extends Layer<PGraphics> {
@@ -24,45 +27,34 @@ public class PGraphicsLayer extends Layer<PGraphics> {
     @Override
     public void line(float x0, float y0, float x1, float y1, Painter painter) {
         bindPainter(painter);
-        layer.line(x0, y0, x1, y1);
-    }
-
-    @Override
-    public void ellipse(float xCenter, float yCenter, float width, float height, Painter painter) {
-        ellipse(xCenter, yCenter, width, height, painter, noTransforms);
+        getImage().line(x0, y0, x1, y1);
     }
 
     @Override
     public void ellipse(float xCenter, float yCenter, float width, float height, Painter painter, List<Transformation> transientTransforms) {
         bindPainter(painter);
         drawWithTransformations(() -> {
-            layer.ellipseMode(PConstants.CENTER);
-            layer.ellipse(xCenter, yCenter, width, height);
+            getImage().ellipseMode(PConstants.CENTER);
+            getImage().ellipse(xCenter, yCenter, width, height);
         }, transientTransforms);
     }
 
     @Override
     public void arc(float xCenter, float yCenter, float width, float height, float startAngle, float endAngle, Painter painter) {
         bindPainter(painter);
-        layer.arc(xCenter, yCenter, width, height, startAngle, endAngle);
-    }
-
-    @Override
-    public void rectangle(float x, float y, float width, float height, Painter painter) {
-        bindPainter(painter);
-        layer.rect(x, y, width, height);
+        getImage().arc(xCenter, yCenter, width, height, startAngle, endAngle);
     }
 
     @Override
     public void rectangle(float x, float y, float width, float height, Painter painter, List<Transformation> transforms) {
         bindPainter(painter);
-        drawWithTransformations(() -> layer.rect(x, y, width, height), transforms);
+        drawWithTransformations(() -> getImage().rect(x, y, width, height), transforms);
     }
 
     @Override
     public void quad(Vector2D corner0, Vector2D corner1, Vector2D corner2, Vector2D corner3, Painter painter) {
         bindPainter(painter);
-        layer.quad((float) corner0.x(), (float) corner0.y(),
+        getImage().quad((float) corner0.x(), (float) corner0.y(),
                 (float) corner1.x(), (float) corner1.y(),
                 (float) corner2.x(), (float) corner2.y(),
                 (float) corner3.x(), (float) corner3.y());
@@ -72,17 +64,12 @@ public class PGraphicsLayer extends Layer<PGraphics> {
     public void drawPath(List<Vector2D> points, Painter painter, List<Transformation> transientTransforms) {
         bindPainter(painter);
         drawWithTransformations(() -> {
-            layer.beginShape();
+            getImage().beginShape();
             for (final Vector2D pnt : points) {
-                layer.curveVertex((float) pnt.x(), (float) pnt.y());
+                getImage().curveVertex((float) pnt.x(), (float) pnt.y());
             }
-            layer.endShape();
+            getImage().endShape();
         }, transientTransforms);
-    }
-
-    @Override
-    public void drawPolygon(final List<Vector2D> points, final Painter painter) {
-        drawPolygon(points, painter, noTransforms);
     }
 
     @Override
@@ -90,65 +77,30 @@ public class PGraphicsLayer extends Layer<PGraphics> {
         synchronized (lock) {
             bindPainter(painter);
             drawWithTransformations(() -> {
-                layer.beginShape();
-
+                PGraphics image = getImage();
+                image.beginShape();
                 for (final Vector2D pnt : points) {
-                    layer.vertex((float) pnt.x(), (float) pnt.y());
+                    image.vertex((float) pnt.x(), (float) pnt.y());
                 }
-                layer.endShape();
+                image.endShape();
             }, transientTransforms);
         }
     }
 
     @Override
     public void drawText(String text, int x, int y) {
-        layer.text(text, x, y);
-    }
-
-    @Override
-    public void line(Vector2D start, Vector2D end, Painter painter) {
-        line((float) start.x(), (float) start.y(), (float) end.x(), (float) end.y(), painter);
-    }
-
-    public void vector2D(Vector2D startPos, Vector2D vector2D, Painter painter) {
-        vector2D(startPos, vector2D, 1.0, painter);
-    }
-
-    public void vector2D(Vector2D startPos, Vector2D vector2D, double scale, Painter painter) {
-        line((float) startPos.x(), (float) startPos.y(), (float) (startPos.x() + scale * vector2D.x()),
-                (float) (startPos.y() + scale * vector2D.y()), painter);
-    }
-
-    @Override
-    public void circle(Vector2D center, float radius, Painter painter) {
-        circle((float) center.x(), (float) center.y(), radius, painter);
-    }
-
-    /**
-     * Draw an empty circle.
-     *
-     * @param x x-coordinate of center of circle
-     * @param y y-coordinate of center of circle
-     */
-    @Override
-    public void circle(float x, float y, float radius, Painter painter) {
-        ellipse(x, y, (2 * radius), (2 * radius), painter, noTransforms);
-    }
-
-    @Override
-    public void drawPath(List<Vector2D> points, Painter painter) {
-        drawPath(points, painter, noTransforms);
+        getImage().text(text, x, y);
     }
 
     @Override
     public void clear() {
-        layer.clear();
+        getImage().clear();
     }
 
     @Override
     public void background(Painter painter) {
         final int fill = painter.getFill();
-        layer.background(fill);
+        getImage().background(fill);
     }
 
     @Override
@@ -158,34 +110,29 @@ public class PGraphicsLayer extends Layer<PGraphics> {
         return layer;
     }
 
-    @Override
-    public PGraphics getImage() {
-        layer.endDraw();
-        return layer;
-    }
-
     private void bindPainter(Painter painter) {
 
         if (painter.isFilled()) {
-            layer.fill(painter.getFill());
+            getImage().fill(painter.getFill());
         } else {
-            layer.noFill();
+            getImage().noFill();
         }
 
         if (painter.isStroked()) {
-            layer.stroke(painter.getStroke());
-            layer.strokeWeight(painter.getStrokeWeight());
+            getImage().stroke(painter.getStroke());
+            getImage().strokeWeight(painter.getStrokeWeight());
         } else {
-            layer.noStroke();
+            getImage().noStroke();
         }
 
     }
 
     @Override
     public void handleNewFrame() {
-        layer.translate(getCenterX() * getWidth(), getCenterY() * getHeight());
-        layer.rotate(getRotation());
-        layer.scale(getScaleX(), getScaleY());
+        PGraphics image = getImage();
+        image.translate(getCenterX() * getWidth(), getCenterY() * getHeight());
+        image.rotate(getRotation());
+        image.scale(getScaleX(), getScaleY());
     }
 
     private int pushedTransientTransformationsCount = 0;
@@ -215,23 +162,24 @@ public class PGraphicsLayer extends Layer<PGraphics> {
 
     @Override
     public void drawOnto(PGraphics target) {
-        checkArgument(target.width == layer.width, "Widths do not match");
-        checkArgument(target.height == layer.height, "Heights do not match");
+        checkArgument(target.width == getImage().width, "Widths do not match");
+        checkArgument(target.height == getImage().height, "Heights do not match");
 
-        layer.endDraw();
-        target.image(layer, 0, 0);
-        layer.beginDraw();
+        getImage().endDraw();
+        target.image(getImage(), 0, 0);
+        getImage().beginDraw();
 
     }
 
+    @FunctionalInterface
     private interface Drawer {
         void draw();
     }
 
     private void drawWithTransformations(Drawer drawer, List<Transformation> transforms) {
-        pushTransientTransformations(layer, transforms);
+        pushTransientTransformations(getImage(), transforms);
         drawer.draw();
-        popTransientTransformations(layer);
+        popTransientTransformations(getImage());
     }
 
     private void applyTransform(Transformation transformation) {
@@ -239,17 +187,17 @@ public class PGraphicsLayer extends Layer<PGraphics> {
         if (transformation instanceof Rotation) {
 
             Rotation rotationTransform = (Rotation) transformation;
-            layer.rotate(rotationTransform.angle);
+            getImage().rotate(rotationTransform.angle);
 
         } else if (transformation instanceof Translation) {
 
             Translation translationTransform = (Translation) transformation;
-            layer.translate(translationTransform.x, translationTransform.y);
+            getImage().translate(translationTransform.x, translationTransform.y);
 
         } else if (transformation instanceof Scale) {
 
             Scale scaleTransform = (Scale) transformation;
-            layer.scale(scaleTransform.x, scaleTransform.y);
+            getImage().scale(scaleTransform.x, scaleTransform.y);
 
         } else
             throw new ClassCastException("Unexpected transformation: " + transformation);
