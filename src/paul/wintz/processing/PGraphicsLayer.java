@@ -98,13 +98,12 @@ public class PGraphicsLayer extends Layer<PGraphics> {
     }
 
     @Override
-    public void background(Painter painter) {
-        final int fill = painter.getFill();
-        getImage().background(fill);
+    public void fill(int fillColor) {
+        getImage().background(fillColor);
     }
 
     @Override
-    public final PGraphics createLayer() {
+    protected final PGraphics createImageObject() {
         PGraphics layer = ProcessingUtils.createPGraphics(getWidth(), getHeight());
         layer.beginDraw();
         return layer;
