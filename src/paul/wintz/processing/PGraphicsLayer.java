@@ -129,6 +129,7 @@ public class PGraphicsLayer extends Layer<PGraphics> {
     @Override
     public void handleNewFrame() {
         PGraphics image = getImage();
+        image.resetMatrix();
         image.translate(getCenterX() * getWidth(), getCenterY() * getHeight());
         image.rotate(getRotation());
         image.scale(getScaleX(), getScaleY());
