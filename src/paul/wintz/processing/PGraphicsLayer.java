@@ -88,7 +88,8 @@ public class PGraphicsLayer extends Layer<PGraphics> {
     }
 
     @Override
-    public void drawText(String text, int x, int y) {
+    public void drawText(String text, float x, float y, Painter painter) {
+        bindPainter(painter);
         getImage().text(text, x, y);
     }
 
