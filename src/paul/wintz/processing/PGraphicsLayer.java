@@ -127,7 +127,7 @@ public class PGraphicsLayer extends Layer<PGraphics> {
     }
 
     @Override
-    public void handleNewFrame() {
+    public void applyPersistentTransformationsUpdate() {
         PGraphics image = getImage();
         image.resetMatrix();
         image.translate(getCenterX() * getWidth(), getCenterY() * getHeight());
@@ -168,7 +168,6 @@ public class PGraphicsLayer extends Layer<PGraphics> {
         getImage().endDraw();
         target.image(getImage(), 0, 0);
         getImage().beginDraw();
-
     }
 
     @FunctionalInterface
